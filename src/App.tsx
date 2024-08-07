@@ -12,12 +12,12 @@ export default function App() {
   //const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="flex flex-col h-screen">
-      <header className="fixed top-0 left-0 right-0 bg-orange-500 flex">
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-orange-500 flex">
         <Header />
       </header>
 
-      <main className="flex-grow bg-yellow-500">
+      <main className="flex-1 bg-yellow-500 overflow-auto">
         <Routes>
           <Route path={Path.Home} element={<Home />} />
           {/*<Route path={Path.Gallery} element={<PicturesList />} />*/}
@@ -36,7 +36,7 @@ export default function App() {
           {/*<Route path={Path.Error404Path} element={<PageNotFound />} />*/}
         </Routes>
       </main>
-      <footer className="bg-orange-500 flex">
+      <footer className="bg-orange-500 flex sm:flex-col lg:flex-row sm:justify-center items-center sm:p-2 lg:p-4">
         <Footer />
       </footer>
     </div>

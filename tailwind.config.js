@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      clipPath:{
+        'custom-rect': 'polygon(0 10%, 100% 20%, 90% 100%, 10% 90%)',
+      }
+    },
   },
   plugins: [],
 }
