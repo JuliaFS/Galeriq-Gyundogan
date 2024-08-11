@@ -43,7 +43,7 @@ export default function Header() {
             <Link to={Path.Home}>Home</Link>
           </li>
           <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-            <Link to={Path.Home}>Gallery</Link>
+            <Link to={Path.Gallery}>Gallery</Link>
           </li>
 
           {userEmail ? (

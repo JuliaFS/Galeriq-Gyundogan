@@ -2,15 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { doc, getDoc, Timestamp } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
+import { ImageDataProps } from '../types/imageType';
 
-// Define the ImageDataProps interface with all necessary fields
-interface ImageDataProps {
-  url: string;
-  category: string | null;
-  createdAt: Timestamp | null;
-  description: string | null;
-  title: string | null;
-}
+// Define the ImageDataProps interface with all necessary field
 
 const ImageDetails: React.FC = () => {
   const { pictureId } = useParams<{ pictureId: string }>();
@@ -55,6 +49,7 @@ const ImageDetails: React.FC = () => {
         <div>
           <img src={imageData.url} alt={imageData.title ?? 'Image'} className="image-details-img" />
           <h1>{imageData.title ?? 'No Title'}</h1>
+          <p>{imageData.author ?? 'No Author'}</p>
           <p>{imageData.description ?? 'No Description'}</p>
           <p>Category: {imageData.category ?? 'No Category'}</p>
           <p>Created At: {imageData.createdAt ? imageData.createdAt.toDate().toLocaleDateString() : 'Unknown'}</p>

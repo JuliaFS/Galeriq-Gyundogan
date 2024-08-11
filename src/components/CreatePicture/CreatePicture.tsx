@@ -7,6 +7,7 @@ const UploadImage: React.FC = () => {
   const [formData, setFormData] = useState({
     image: null as File | null,
     title: "",
+    author: "",
     description: "",
     category: "",
   });
@@ -40,6 +41,7 @@ const UploadImage: React.FC = () => {
     if (
       formData.image &&
       formData.title &&
+      formData.author &&
       formData.description &&
       formData.category
     ) {
@@ -65,13 +67,16 @@ const UploadImage: React.FC = () => {
             await addDoc(collection(firestore, "images"), {
               url: downloadURL,
               title: formData.title,
+              author: formData.author,
               description: formData.description,
               category: formData.category,
               createdAt: new Date(),
             });
+
+
             console.log("Document successfully written!");
           } catch (error) {
-            setError("rror writing document.");
+            setError("Error writing document.");
             console.error("Error writing document: ", error);
           }
         }
@@ -83,7 +88,7 @@ const UploadImage: React.FC = () => {
 
   return (
     <div className="bg-custom-gradient flex justify-center relative z-10 h-[30rem] w-[25rem] shadow-custom-shadow">
-      <div className="flex flex-col gap-8 w-[80%]">
+      <div className="flex flex-col gap-4 w-[80%]">
         <h2 className="text-3xl text-center font-bold py-4">Create picture</h2>
         {error && <p className="error">{error}</p>}
         <form className="flex flex-col gap-2" onSubmit={handleUpload}>
@@ -96,6 +101,17 @@ const UploadImage: React.FC = () => {
               name="title"
               placeholder="Enter image title"
               value={formData.title}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group relative">
+            <input
+              className="p-2 border-2 border-purple-200 w-full"
+              type="text"
+              name="author"
+              placeholder="Author name"
+              value={formData.author}
               onChange={handleInputChange}
               required
             />
@@ -123,7 +139,7 @@ const UploadImage: React.FC = () => {
           </div>
 
           <button
-            className="mt-8 p-2 font-bold border-2 border-[#e3fdf5] w-full"
+            className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full"
             type="submit"
           >
             Upload
