@@ -1,11 +1,11 @@
 import { firestore } from '../firebaseConfig';
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-export interface UserData {
-  email: string;
-  displayName?: string;
-  photoURL?: string;
-}
+
+  export interface UserData {
+    uid: string | null;
+    email: string | null;
+  }
 
 export const getUserData = async (userId: string): Promise<UserData | undefined> => {
   const userDoc = doc(firestore, "users", userId);

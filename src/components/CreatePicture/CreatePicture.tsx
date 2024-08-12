@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 import { storage, firestore } from "../../firebaseConfig";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/userSlice";
 
 const UploadImage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +12,11 @@ const UploadImage: React.FC = () => {
     author: "",
     description: "",
     category: "",
+    userUid: ""
   });
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+  const user = useSelector(selectUser);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,6 +75,7 @@ const UploadImage: React.FC = () => {
               description: formData.description,
               category: formData.category,
               createdAt: new Date(),
+              userUid: user.uid
             });
 
 

@@ -12,7 +12,8 @@ import { Path } from "../../constants/constants";
 
 export default function Header() {
   const [nav, setNav] = useState(false);
-  const userEmail = useSelector(selectUser);
+  const user = useSelector(selectUser);
+
   const dispatch = useDispatch();
 
   const handleClick = () => setNav(!nav);
@@ -40,19 +41,19 @@ export default function Header() {
           }
         >
           <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-            <Link to={Path.Home}>Home</Link>
+            <Link to={Path.Home} onClick={handleClick}>Home</Link>
           </li>
           <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-            <Link to={Path.Gallery}>Gallery</Link>
+            <Link to={Path.Gallery} onClick={handleClick}>Gallery</Link>
           </li>
 
-          {userEmail ? (
+          {user.email !== null ? (
             <>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-              <Link to={Path.CreatePicture}>Create picture</Link>
+              <Link to={Path.CreatePicture} onClick={handleClick}>Create picture</Link>
               </li>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                Hello, {userEmail}
+                Hello, {user.email}
               </li>
               <li
                 className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0"
@@ -64,10 +65,10 @@ export default function Header() {
           ) : (
             <>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                <Link to={Path.Login}>Login</Link>
+                <Link to={Path.Login} onClick={handleClick}>Login</Link>
               </li>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                <Link to={Path.Register}>Register</Link>
+                <Link to={Path.Register} onClick={handleClick}>Register</Link>
               </li>
             </>
           )}

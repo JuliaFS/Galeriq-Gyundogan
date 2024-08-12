@@ -6,6 +6,6 @@ export interface ImageDataProps {
     category: string | null;
     createdAt: Timestamp | null;
     description: string | null;
-    title: string | null;
+    title: string | undefined;
     author: string | null;
   }

@@ -15,7 +15,6 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,21 +22,25 @@ const Login: React.FC = () => {
 
     try {
       const userCredential = await authenticateUser(email, password);
-      const userId = userCredential.user.uid;
-      const userEmail = userCredential.user.email;
+      const { uid, email: userEmail } = userCredential.user;
+
+      // Check if email exists
+      if (!userEmail) {
+        throw new Error("No email found for this user.");
+      }
 
       // Fetch or create user data in Firestore
-      let userData = await getUserData(userId);
+      let userData = await getUserData(uid);
       if (!userData) {
-        userData = { email: userCredential.user.email! };
-        await saveUserData(userId, userData);
+        userData = { uid, email: userEmail };
+        await saveUserData(uid, userData);
       }
 
-      if (userEmail) {
-        dispatch(setUser(userEmail));
-      }
+      // Dispatch user data to Redux store
+      dispatch(setUser({ uid, email: userEmail }));
+
+      // Navigate to Gallery
       navigate(Path.Gallery);
-
       setError(null);
     } catch (err) {
       setError("Failed to login. Please check your credentials.");
