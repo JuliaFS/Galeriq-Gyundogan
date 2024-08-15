@@ -1,21 +1,34 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { authenticateUser } from "../../services/authService";
-import { getUserData, saveUserData } from "../../services/firestoreService";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-import { useDispatch } from "react-redux";
+import { authenticateUser } from "../../services/authService";
+import { getUserData, saveUserData } from "../../services/firestoreService";
+
 import { setUser } from "../../store/userSlice";
-import { Link } from "react-router-dom";
 import { Path } from "../../constants/constants";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Clean up the timeout on component unmount
+    return () => {
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
+    };
+  }, []);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent default form submission
@@ -39,12 +52,16 @@ const Login: React.FC = () => {
       // Dispatch user data to Redux store
       dispatch(setUser({ uid, email: userEmail }));
 
-      // Navigate to Gallery
-      navigate(Path.Gallery);
-      setError(null);
+      toast.success("Login successful");
+
+      timeoutIdRef.current =  setTimeout(() => {
+        navigate(Path.Gallery);
+      }, 3000); // Delay of 3 seconds
+
     } catch (err) {
-      setError("Failed to login. Please check your credentials.");
-      console.error("Login error:", err);
+      //setError("Failed to login. Please check your credentials.");
+      toast.error(`${err}`);
+      //console.error("Login error:", err);
     }
   };
 
@@ -52,7 +69,7 @@ const Login: React.FC = () => {
     <div className="bg-custom-gradient flex justify-center relative z-10 h-[30rem] w-[25rem] shadow-custom-shadow">
       <div className="flex flex-col gap-16 w-[80%]">
         <h2 className="text-3xl text-center font-bold py-8">Login</h2>
-        {error && <p className="error">{error}</p>}
+        {/*{error && <p className="error">{error}</p>}*/}
         <form className="flex flex-col gap-4" onSubmit={handleLogin}>
           <div className="form-group relative">
             <input
@@ -87,6 +104,7 @@ const Login: React.FC = () => {
             If you don't have profile click <Link to={Path.Register}><span className="font-bold">here</span></Link>
         </p>
       </div>
+      <ToastContainer className="custom-toast-container" position="top-center"/>
     </div>
   );
 };

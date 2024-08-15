@@ -33,7 +33,7 @@ const Gallery: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-4 gap-4 bg-green-500 sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-scroll">
       {images.map((image) => (
         <div key={image.id}>
         <Link to={`/details/${image.id}`} key={image.id}>

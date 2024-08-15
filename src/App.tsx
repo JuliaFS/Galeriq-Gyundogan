@@ -15,12 +15,12 @@ export default function App() {
   //const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="min-h-screen flex flex-col max-w-full">
+    <div className="min-h-screen flex flex-col">
       <header className="bg-purple-200 flex sm:flex-col lg:flex-row z-50">
         <Header />
       </header>
 
-      <main className="flex items-center justify-center flex-1 overflow-auto">
+      <main className="flex items-center justify-center flex-1">
         <Routes>
           <Route path={Path.Home} element={<Home />} />
           <Route path={Path.Gallery} element={<Gallery />} />
@@ -32,9 +32,9 @@ export default function App() {
           <Route path={Path.Details} element={<PictureDetails />} />
 
           <Route>
-          <Route path={Path.CreatePicture} element={<CreatePicture />} />
-          {/*<Route path={Path.PictureEdit} element={<EditPicture />} />*/}
-          {/*<Route path={Path.Logout} element={<Logout />} />*/}
+            <Route path={Path.CreatePicture} element={<CreatePicture />} />
+            {/*<Route path={Path.PictureEdit} element={<EditPicture />} />*/}
+            {/*<Route path={Path.Logout} element={<Logout />} />*/}
           </Route>
           {/*<Route path={Path.Error404Path} element={<PageNotFound />} />*/}
         </Routes>

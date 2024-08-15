@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 import { storage, firestore } from "../../firebaseConfig";
-import { useSelector } from "react-redux";
+
 import { selectUser } from "../../store/userSlice";
+import { Path } from "../../constants/constants";
+
 
 const UploadImage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -15,8 +22,10 @@ const UploadImage: React.FC = () => {
     userUid: ""
   });
   const [progress, setProgress] = useState<number>(0);
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,15 +48,28 @@ const UploadImage: React.FC = () => {
       }));
     }
   };
+
+  const timeoutIdRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Clean up the timeout on component unmount
+    return () => {
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
+    };
+  }, []);
+  
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission
+    setIsUploading(true);
 
     if (
       formData.image &&
       formData.title &&
       formData.author &&
       formData.description &&
-      formData.category
+      formData.category 
     ) {
       const storageRef = ref(storage, `images/${formData.image.name}`);
       const uploadTask = uploadBytesResumable(storageRef, formData.image);
@@ -58,14 +80,15 @@ const UploadImage: React.FC = () => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setProgress(progress);
-          console.log("Upload is " + progress + "% done");
+          //console.log("Upload is " + progress + "% done");
         },
         (error) => {
-          console.error("Upload failed", error);
+          toast.error(`${error}`);
+          //console.error("Upload failed", error);
         },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log("File available at", downloadURL);
+          //console.log("File available at", downloadURL);
 
           try {
             await addDoc(collection(firestore, "images"), {
@@ -77,17 +100,23 @@ const UploadImage: React.FC = () => {
               createdAt: new Date(),
               userUid: user.uid
             });
+            toast.success("Document successfully written!");
+            
 
-
-            console.log("Document successfully written!");
+            timeoutIdRef.current =  setTimeout(() => {
+              setIsUploading(false);
+              navigate(Path.Gallery);
+            }, 2000); // Delay of 2 seconds
+            //console.log("Document successfully written!");
           } catch (error) {
-            setError("Error writing document.");
+            //setError("Error writing document.");
             console.error("Error writing document: ", error);
           }
         }
       );
     } else {
-      console.log("Please fill in all fields.");
+      toast.warning("Please fill in all fields.")
+      //console.log("Please fill in all fields.");
     }
   };
 
@@ -95,7 +124,7 @@ const UploadImage: React.FC = () => {
     <div className="bg-custom-gradient flex justify-center relative z-10 h-[30rem] w-[25rem] shadow-custom-shadow">
       <div className="flex flex-col gap-4 w-[80%]">
         <h2 className="text-3xl text-center font-bold py-4">Create picture</h2>
-        {error && <p className="error">{error}</p>}
+        {/*{error && <p className="error">{error}</p>}*/}
         <form className="flex flex-col gap-2" onSubmit={handleUpload}>
           <input type="file" name="image" onChange={handleInputChange} />
           {progress > 0 && <p>Upload progress: {progress.toFixed(2)}%</p>}
@@ -107,6 +136,7 @@ const UploadImage: React.FC = () => {
               placeholder="Enter image title"
               value={formData.title}
               onChange={handleInputChange}
+              disabled={isUploading}
               required
             />
           </div>
@@ -118,6 +148,7 @@ const UploadImage: React.FC = () => {
               placeholder="Author name"
               value={formData.author}
               onChange={handleInputChange}
+              disabled={isUploading}
               required
             />
           </div>
@@ -128,6 +159,7 @@ const UploadImage: React.FC = () => {
               placeholder="Enter image description"
               value={formData.description}
               onChange={handleInputChange}
+              disabled={isUploading}
               required
             />
           </div>
@@ -139,6 +171,7 @@ const UploadImage: React.FC = () => {
               placeholder="Enter image category"
               value={formData.category}
               onChange={handleInputChange}
+              disabled={isUploading}
               required
             />
           </div>
@@ -146,11 +179,13 @@ const UploadImage: React.FC = () => {
           <button
             className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full"
             type="submit"
+            disabled={isUploading}
           >
             Upload
           </button>
         </form>
       </div>
+      <ToastContainer className="custom-toast-container" position="top-center"/>
     </div>
   );
 };

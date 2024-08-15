@@ -18,11 +18,18 @@ export default function Header() {
 
   const handleClick = () => setNav(!nav);
 
+  const handleLinkClick = () => {
+    if (window.innerWidth < 1024) {
+      setNav(false);
+    }
+  };
+
   const handleLogout = async () => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      dispatch(clearUser()); // Clears user data from Redux state
+      dispatch(clearUser()); // Clears user data from Redux state 
+     handleLinkClick();
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -30,27 +37,27 @@ export default function Header() {
   return (
     <>
       <div className="p-4 whitespace-nowrap">
-        <Link to={Path.Home}>Gallery Gyundogan</Link>
+        <Link to={Path.Home} onClick={handleLinkClick}>Gallery Gyundogan</Link>
       </div>
       <nav className="lg:static lg:flex-grow lg:p-4">
         <ul
           className={
-            nav
+            nav 
               ? "bg-purple-200 sm:absolute sm:w-full transition duration-1000 ease-in"
               : "sm:hidden lg:flex lg:flex-row lg:justify-end lg:gap-4"
           }
         >
           <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-            <Link to={Path.Home} onClick={handleClick}>Home</Link>
+            <Link to={Path.Home} onClick={handleLinkClick}>Home</Link>
           </li>
           <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-            <Link to={Path.Gallery} onClick={handleClick}>Gallery</Link>
+            <Link to={Path.Gallery} onClick={handleLinkClick}>Gallery</Link>
           </li>
 
           {user.email !== null ? (
             <>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-              <Link to={Path.CreatePicture} onClick={handleClick}>Create picture</Link>
+              <Link to={Path.CreatePicture} onClick={handleLinkClick}>Create picture</Link>
               </li>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
                 Hello, {user.email}
@@ -65,10 +72,10 @@ export default function Header() {
           ) : (
             <>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                <Link to={Path.Login} onClick={handleClick}>Login</Link>
+                <Link to={Path.Login} onClick={handleLinkClick}>Login</Link>
               </li>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                <Link to={Path.Register} onClick={handleClick}>Register</Link>
+                <Link to={Path.Register} onClick={handleLinkClick}>Register</Link>
               </li>
             </>
           )}
@@ -80,19 +87,9 @@ export default function Header() {
         onClick={handleClick}
       >
         {nav ? (
-          <div
-            className="cursor-pointer pr-4 sm:block lg:hidden"
-            onClick={handleClick}
-          >
             <IoClose size={30} />
-          </div>
-        ) : (
-          <div
-            className="cursor-pointer pr-4 sm:block lg:hidden"
-            onClick={handleClick}
-          >
+          ) : (
             <GiHamburgerMenu size={30} />
-          </div>
         )}
       </div>
     </>

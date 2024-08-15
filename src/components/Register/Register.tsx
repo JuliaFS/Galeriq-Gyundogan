@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaUserEdit } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 import { auth } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { saveUserData, UserData } from "../../services/firestoreService";
-import { FaUserEdit } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
 
-import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { Path } from "../../constants/constants";
 import { Link } from "react-router-dom";
@@ -32,6 +32,7 @@ const Register: React.FC = () => {
       }
     };
   }, []);
+  
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     //setError(null);

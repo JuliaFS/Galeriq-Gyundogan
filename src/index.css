@@ -11,6 +11,10 @@
   font-family: Raleway, sans-serif;
 }
 
+body{
+	overflow: hidden;
+}
+
 .custom-toast-container {
   top: 4.4rem !important;
 }
