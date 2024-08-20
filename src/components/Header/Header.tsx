@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,9 +13,17 @@ import { Path } from "../../constants/constants";
 export default function Header() {
   const [nav, setNav] = useState(false);
   const user = useSelector(selectUser);
-
+  
+  console.log({ user})
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log("User in Header (after useEffect):", user); 
+  }, [user]); // This will log user state whenever it changes
+
+  // if (!user || !user.email) {
+  //   return null; // Or return a loading spinner if you prefer
+  // }
   const handleClick = () => setNav(!nav);
 
   const handleLinkClick = () => {
@@ -23,6 +31,7 @@ export default function Header() {
       setNav(false);
     }
   };
+  
 
   const handleLogout = async () => {
     const auth = getAuth();
@@ -54,7 +63,7 @@ export default function Header() {
             <Link to={Path.Gallery} onClick={handleLinkClick}>Gallery</Link>
           </li>
 
-          {user.email !== null ? (
+          {user.email ? (
             <>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
               <Link to={Path.CreatePicture} onClick={handleLinkClick}>Create picture</Link>

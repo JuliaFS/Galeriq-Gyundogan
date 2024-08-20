@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { doc, getDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
 
 import { ImageDataProps } from '../types/imageType';
 import { selectUser } from '../../store/userSlice';
 import { useSelector } from 'react-redux';
-
-// Define the ImageDataProps interface with all necessary field
+import { Path } from '../../constants/constants';
+import { pathToUrl } from '../../utils/pathToUrl';
+//import ConfirmationModal from '../components/ConfirmationModal'; // Import the modal component
+import ConfirmationModal from '../Modal/ConfirmationModal';
 
 const ImageDetails: React.FC = () => {
   const { pictureId } = useParams<{ pictureId: string }>();
   const [imageData, setImageData] = useState<ImageDataProps | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const user = useSelector(selectUser);
- // const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  if (!pictureId) {
+    throw new Error("pictureId is missing from the URL");
+  }
 
   useEffect(() => {
     const fetchImageDetails = async () => {
       if (!pictureId) {
-       // setError('No ID provided');
-       toast.error("No ID provided.")
+        toast.error("No ID provided.");
         setLoading(false);
         return;
       }
@@ -33,15 +39,12 @@ const ImageDetails: React.FC = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setImageData(docSnap.data() as ImageDataProps); // Type assertion
+          setImageData(docSnap.data() as ImageDataProps);
         } else {
-          //setError('No such document!');
-          toast.error("No such document!")
+          toast.error("No such document!");
         }
       } catch (error) {
-        //setError('Failed to fetch image details');
         toast.error("Failed to fetch image details");
-        //console.error('Error fetching document:', error);
       } finally {
         setLoading(false);
       }
@@ -49,12 +52,25 @@ const ImageDetails: React.FC = () => {
 
     fetchImageDetails();
   }, [pictureId]);
-  console.log(imageData)
-  // Render loading state, error state, and image data
+
+  const handleDelete = async () => {
+    try {
+      if (pictureId) {
+        await deleteDoc(doc(firestore, 'images', pictureId));
+        toast.success("Image deleted successfully!");
+        navigate(Path.Gallery); // Redirect to the gallery after deletion
+      }
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      toast.error("Failed to delete the image");
+    } finally {
+      setIsModalOpen(false);
+    }
+  };
+
   return (
-    <div className="image-details-container">
+    <div className="sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-auto">
       {loading && <p>Loading...</p>}
-      {/*{error && <p className="error-message">{error}</p>}*/}
       {imageData && !loading && (
         <div>
           <img src={imageData.url} alt={imageData.title ?? 'Image'} className="image-details-img" />
@@ -65,13 +81,26 @@ const ImageDetails: React.FC = () => {
           <p>Created At: {imageData.createdAt ? imageData.createdAt.toDate().toLocaleDateString() : 'Unknown'}</p>
         </div>
       )}
-      { user.uid === imageData?.userUid &&
+      {user.uid === imageData?.userUid && (
         <div>
-            <button className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full">Edit</button>
-            <button className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full">Delete</button>
+          <button className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full">
+            <Link to={pathToUrl(Path.PictureEdit, { pictureId })}>Edit</Link>
+          </button>
+          <button
+            className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Delete
+          </button>
         </div>
-      }
-      <ToastContainer className="custom-toast-container" position="top-center"/>
+      )}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+        message="Are you sure you want to delete this image?"
+      />
+      <ToastContainer className="custom-toast-container" position="top-center" />
     </div>
   );
 };

@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import CreatePicture from "./components/CreatePicture/CreatePicture";
 import Gallery from "./components/Gallery/Gallery";
 import PictureDetails from "./components/PictureDetails/PictureDetails";
+import EditPicture from "./components/EditPicture/EditPicture";
 
 export default function App() {
   //const [isLogin, setIsLogin] = useState(true);
@@ -20,7 +21,7 @@ export default function App() {
         <Header />
       </header>
 
-      <main className="flex items-center justify-center flex-1">
+      <main className="flex items-center justify-center flex-1 overflow-y-auto">
         <Routes>
           <Route path={Path.Home} element={<Home />} />
           <Route path={Path.Gallery} element={<Gallery />} />
@@ -33,7 +34,7 @@ export default function App() {
 
           <Route>
             <Route path={Path.CreatePicture} element={<CreatePicture />} />
-            {/*<Route path={Path.PictureEdit} element={<EditPicture />} />*/}
+            <Route path={Path.PictureEdit} element={<EditPicture />} />
             {/*<Route path={Path.Logout} element={<Logout />} />*/}
           </Route>
           {/*<Route path={Path.Error404Path} element={<PageNotFound />} />*/}
