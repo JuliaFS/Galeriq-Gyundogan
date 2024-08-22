@@ -34,9 +34,10 @@ const Home: React.FC = () => {
       </div>
 
       {/* Second Column with Nested Grid */}
-      <div className="grid grid-cols-1 grid-rows-2 gap-4 bg-red-500 w-full">
+      {/*<div className="grid grid-cols-1 grid-rows-2 h-auto bg-red-500 w-full p-2">*/}
+      <div className="flex flex-col h-auto bg-red-500 w-full p-2">
         {/* Row 1: Image Gallery */}
-        <div className="gallery bg-orange-200 sm:max-w-fit w-full h-full flex justify-center items-center overflow-hidden">
+        <div className="gallery bg-orange-200 h-[430px] w-ful flex justify-center items-center overflow-hidden">
           {pictures.length === 0 ? (
             <p>No pictures found.</p>
           ) : (
@@ -52,8 +53,9 @@ const Home: React.FC = () => {
         </div>
 
         {/* Row 2: Additional Content */}
-        <div className="bg-blue-200 w-full h-full flex justify-center items-center">
-          Another content here
+        <div className="relative flex-1">
+          <p className="absolute top-0 bg-blue-500 bg-opacity-50 z-20 w-full py-4 text-center font-bold text-2xl text-white uppercase">My little painters...</p>
+          <img src="../public/images/elif_meral.jpg" alt="Elif&Meral" />
         </div>
       </div>
 

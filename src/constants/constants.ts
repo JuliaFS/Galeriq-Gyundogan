@@ -8,6 +8,7 @@ const Path = {
     Details: "/details/:pictureId",
     PictureEdit: "/gallery/:pictureId/edit",
     PictureDelete: "/gallery/:pictureId/delete",
+    UserProfile: "/profile",
     Error404Path: "*",
 }
 

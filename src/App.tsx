@@ -11,6 +11,7 @@ import CreatePicture from "./components/CreatePicture/CreatePicture";
 import Gallery from "./components/Gallery/Gallery";
 import PictureDetails from "./components/PictureDetails/PictureDetails";
 import EditPicture from "./components/EditPicture/EditPicture";
+import Profile from "./components/Profile/Profile";
 
 export default function App() {
   //const [isLogin, setIsLogin] = useState(true);
@@ -35,6 +36,7 @@ export default function App() {
           <Route>
             <Route path={Path.CreatePicture} element={<CreatePicture />} />
             <Route path={Path.PictureEdit} element={<EditPicture />} />
+            <Route path={Path.UserProfile} element={<Profile />} />
             {/*<Route path={Path.Logout} element={<Logout />} />*/}
           </Route>
           {/*<Route path={Path.Error404Path} element={<PageNotFound />} />*/}
