@@ -104,23 +104,23 @@ const Gallery: React.FC = () => {
   );
 
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-scroll">
+    <div className="p-1 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-scroll">
       {loading && <p>Loading...</p>}
       {!loading && images.length === 0 && <p>No images found.</p>}
       {images.map((image, index) => (
         <div
           key={image.id}
           ref={index === images.length - 1 ? lastImageRef : null}
-          className="p-2"
+          className="border-2"
         >
           <Link to={`/details/${image.id}`}>
             <img
               src={image.url}
               alt={image.title ?? 'No Title'}
-              className="object-cover w-full h-full cursor-pointer"
+              className="object-cover w-full h-[90%] cursor-pointer"
             />
           </Link>
-          <p>{image.title ?? 'No Title'}</p>
+          <p className="p-2">{image.title ?? 'No Title'}</p>
         </div>
       ))}
       {isFetching && <p>Loading more images...</p>}
