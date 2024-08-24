@@ -69,30 +69,36 @@ const ImageDetails: React.FC = () => {
   };
 
   return (
-    <div className="bg-red-500 sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-auto">
+    <div className="sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] sm:w-full lg:w-[70%] sm:p-4 lg:p-0 overflow-y-auto">
       {loading && <p>Loading...</p>}
       {imageData && !loading && (
-        <div className="flex gap-4 justify-center">
-          <div>
-            <img
-              src={imageData.url}
-              alt={imageData.title ?? "Image"}
-              className="image-details-img"
-            />
+        <>
+          <div className="text-center text-3xl py-2 mt-[2rem] font-bold border-b-2">
+            <h1 className="p-2">{imageData.title ?? "No Title"}</h1>
           </div>
-          <div>
-            <h1>{imageData.title ?? "No Title"}</h1>
-            <p>{imageData.author ?? "No Author"}</p>
-            <p>{imageData.description ?? "No Description"}</p>
-            <p>Category: {imageData.category ?? "No Category"}</p>
-            <p>
-              Created At:{" "}
-              {imageData.createdAt
-                ? imageData.createdAt.toDate().toLocaleDateString()
-                : "Unknown"}
-            </p>
+          <div className="py-4 grid lg:grid-cols-2 gap-4">
+            <div>
+              <img
+                src={imageData.url}
+                alt={imageData.title ?? "Image"}
+                className="image-details-img"
+              />
+            </div>
+            <div className="p-2">
+              <p className="p-2">Author: <span className="font-bold">{imageData.author ?? "No Author"}</span></p>
+              <p className="p-2">{imageData.description ?? "No Description"}</p>
+              <p className="p-2">
+                Category: {imageData.category ?? "No Category"}
+              </p>
+              <p className="p-2">
+                Created At:{" "}
+                {imageData.createdAt
+                  ? imageData.createdAt.toDate().toLocaleDateString()
+                  : "Unknown"}
+              </p>
+            </div>
           </div>
-        </div>
+        </>
       )}
       {user.uid === imageData?.userUid && (
         <div>
