@@ -84,10 +84,10 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="z-10 sm:h-[calc(100vh-172px)] align-middle lg:h-[calc(100vh-112px)] sm:w-full lg:w-[50rem]">
+    <div className="z-10 mt-8 sm:h-[calc(100vh-172px)] align-middle lg:h-[calc(100vh-112px)] sm:w-full lg:w-[50rem]">
       <div className="flex sm:flex-col md:flex-row items-center lg:border-2 relative">
         <div className="flex flex-col gap-10 items-center sm:w-full md:w-[50%] lg:border-r-0 sm:mb-4">
-          <div className="sm:p-4 lg:p-8">
+          <div className="lg:p-8">
             <img
               src={profileImageUrl || "fallback-image-url"} // Use a fallback image URL if none is provided
               alt={displayName || "Profile image"}
@@ -96,8 +96,8 @@ const Profile: React.FC = () => {
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-lg">
-              Display Name:
-              <span className="font-bold">{displayName || "User"}</span>
+              Display Name: 
+              <span className="font-bold"> {displayName || "User"}</span>
             </p>
             <p>
               Email: <span className="font-bold">{email}</span>
@@ -108,8 +108,8 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-custom-gradient shadow-custom-shadow flex flex-col justify-center items-center gap-10 sm:w-[80%] md:w-[50%]">
-          <div className="flex flex-col gap-4 w-[80%]">
+        <div className="bg-custom-gradient shadow-custom-shadow flex flex-col justify-center items-center gap-10 sm:w-[80%] md:w-[50%] md:mr-8 lg:mr-0">
+          <div className="flex flex-col gap-4 w-[70%]">
             <h2 className="text-3xl text-center font-bold py-8">Profile</h2>
             <form
               className="flex flex-col gap-4"
