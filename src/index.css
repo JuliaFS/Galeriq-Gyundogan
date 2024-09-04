@@ -19,6 +19,7 @@ body{
   top: 4.4rem !important;
 }
 
+/*home component first row pictures*/
 .gallery {
   --size: 100px;
   display: grid;
@@ -59,3 +60,31 @@ body{
     }
   }
 }
+
+/*home component second row pictures*/
+.carousel {
+  position: relative;
+  width: 100%; /* Full screen height */
+  overflow: hidden;
+}
+
+.carousel-images {
+  display: flex;
+  height: auto; /* Adjust this if you have more or fewer images */
+  animation: scroll 15s linear infinite;
+}
+
+.carousel img {
+  object-fit: cover; /* Adjust if needed */
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
+}
+
+

@@ -27,41 +27,59 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className="bg-pink-500 grid sm:grid-cols-1 lg:grid-cols-3 w-full sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-auto">
-      {/* First Column */}
-      <div className="bg-green-500 flex items-center justify-center">
-        <p className="rotate-45">Our latest pictures</p>
-      </div>
-
-      {/* Second Column with Nested Grid */}
-      {/*<div className="grid grid-cols-1 grid-rows-2 h-auto bg-red-500 w-full p-2">*/}
-      <div className="flex flex-col h-auto bg-red-500 w-full p-2">
-        {/* Row 1: Image Gallery */}
-        <div className="gallery bg-orange-200 h-[430px] w-ful flex justify-center items-center overflow-hidden">
-          {pictures.length === 0 ? (
-            <p>No pictures found.</p>
-          ) : (
-            pictures.map((picture) => (
-              <img
-                key={picture.url}
-                src={picture.url}
-                alt={`Image ${picture.title}`}
-                className="w-full h-auto"
-              />
-            ))
-          )}
+    <div className="w-full sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] overflow-y-auto">
+      <div className="bg-yellow-200 grid sm:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] grid-rows-[auto_auto]">
+        {/* First Column */}
+        <div className="bg-green-500 flex items-center justify-center">
+          <p className="rotate-45">Our latest pictures</p>
         </div>
 
-        {/* Row 2: Additional Content */}
-        <div className="relative flex-1">
+        {/* Second Column with Nested Grid */}
+        {/*<div className="grid grid-cols-1 grid-rows-2 h-auto bg-red-500 w-full p-2">*/}
+        <div>
+          {/* Row 1: Image Gallery */}
+          <div className="gallery bg-orange-200 flex justify-center items-center">
+            {pictures.length === 0 ? (
+              <p>No pictures found.</p>
+            ) : (
+              pictures.map((picture) => (
+                <img
+                  key={picture.url}
+                  src={picture.url}
+                  alt={`Image ${picture.title}`}
+                />
+              ))
+            )}
+          </div>
+
+          {/* Row 2: Additional Content */}
+          {/*<div className="relative flex-1">
           <p className="absolute top-0 bg-blue-500 bg-opacity-50 z-20 w-full py-4 text-center font-bold text-2xl text-white uppercase">My little painters...</p>
           <img src="../public/images/elif_meral.jpg" alt="Elif&Meral" />
+        </div>*/}
+        </div>
+
+        {/* Third Column */}
+        <div className="bg-yellow-500 flex justify-center items-center">
+          <p>Content here</p>
         </div>
       </div>
-
-      {/* Third Column */}
-      <div className="bg-yellow-500 flex justify-center items-center">
-        <p>Content here</p>
+      <div className="bg-orange-200 w-full overflow-hidden">
+        {pictures.length === 0 ? (
+          <p>No pictures found.</p>
+        ) : (
+          <div className="carousel">
+            <div className="carousel-images">
+              {pictures.map((picture) => (
+                <img
+                  key={picture.url}
+                  src={picture.url}
+                  alt={`Image ${picture.title}`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
