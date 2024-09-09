@@ -1,6 +1,6 @@
 import { ImageDataProps } from '../components/types/imageType';
 import { firestore } from '../firebaseConfig';
-import { doc, getDoc, setDoc, collection, query, orderBy, limit, getDocs, QuerySnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, query, limit, getDocs } from "firebase/firestore";
   export interface UserData {
     uid: string | null;
     email: string | null;
