@@ -1,17 +1,9 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserProfile } from "../components/types/UserProfile";
 
-// Define the state shape for user
-interface UserState {
-  uid: string;
-  email: string | null;
-  displayName: string;
-  address: string;
-  profileImageUrl: string;
-}
 
 // Set initial state with default values
-const initialState: UserState = {
+const initialState: UserProfile = {
   uid: '',
   email: '',
   displayName: '',
@@ -51,13 +43,13 @@ const userSlice = createSlice({
 });
 
 // Function to preload state from localStorage
-const preloadedState = (): { user: UserState } | undefined => {
+const preloadedState = (): { user: UserProfile } | undefined => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const user = localStorage.getItem("user");
 
   if (isLoggedIn && user) {
     // Return the user state from localStorage
-    const parsedUser: UserState = JSON.parse(user);
+    const parsedUser: UserProfile = JSON.parse(user);
     return { user: parsedUser };
   }
 
@@ -79,7 +71,7 @@ console.log("Initial Redux State:", store.getState());
 export const { setUser, clearUser } = userSlice.actions;
 
 // Selector to get the entire user state
-export const selectUser = (state: { user: UserState }) => state.user;
+export const selectUser = (state: { user: UserProfile }) => state.user;
 
 export default userSlice.reducer;
 

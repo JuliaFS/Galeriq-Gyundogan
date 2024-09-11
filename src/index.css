@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-clip-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  .text-transparent {
+    color: transparent;
+  }
+  .border-rainbow-gradient {
+    border-bottom: 4px solid; /* Adjust border width as needed */
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

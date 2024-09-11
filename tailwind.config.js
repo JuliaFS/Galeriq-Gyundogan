@@ -17,6 +17,7 @@ export default {
         "custom-gradient-1": "linear-gradient(to top, #a8edea 0%, #fed6e3 100%);",
         "custom-gradient-toLeft": "linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))",
         "custom-gradient-toRight": "linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))",
+        'rainbow-gradient': 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)',
       },
       boxShadow: {
         "custom-shadow": "0 9px 50px hsla(20, 67%, 75%, 0.31)", // Add your custom shadow here
@@ -29,6 +30,9 @@ export default {
       },
       animation: {
         scroll: 'scroll 30s linear infinite',
+      },
+      fontFamily: {
+        kalam: ['Kalam', 'cursive']
       },
     },
   },

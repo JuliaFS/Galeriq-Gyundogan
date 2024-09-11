@@ -5,4 +5,3 @@ export interface UserProfile {
     address: string;
     profileImageUrl: string;
   }
-  

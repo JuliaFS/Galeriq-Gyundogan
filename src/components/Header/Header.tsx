@@ -47,7 +47,7 @@ export default function Header() {
   return (
     <>
       <div className="p-4 whitespace-nowrap">
-        <Link to={Path.Home} onClick={handleLinkClick}>
+        <Link to={Path.Home} onClick={handleLinkClick} className="font-kalam bg-rainbow-gradient bg-clip-text text-transparent text-2xl">
           Gallery Gyundogan
         </Link>
       </div>

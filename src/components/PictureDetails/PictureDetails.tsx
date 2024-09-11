@@ -61,7 +61,7 @@ const ImageDetails: React.FC = () => {
         navigate(Path.Gallery); // Redirect to the gallery after deletion
       }
     } catch (error) {
-      console.error("Error deleting image:", error);
+      //console.error("Error deleting image:", error);
       toast.error("Failed to delete the image");
     } finally {
       setIsModalOpen(false);
@@ -69,28 +69,35 @@ const ImageDetails: React.FC = () => {
   };
 
   return (
-    <div className="sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] sm:w-full lg:w-[70%] sm:p-4 lg:p-0 overflow-y-auto">
+    <div className="flex flex-col sm:h-[calc(100vh-180px)] lg:h-[calc(100vh-120px)] sm:w-full lg:w-[70%] sm:p-4 lg:p-0 md:items-center lg:items-start">
       {loading && <p>Loading...</p>}
       {imageData && !loading && (
-        <>
-          <div className="text-center text-3xl py-2 mt-[2rem] font-bold border-b-2">
+        <div className="h-fit">
+          <div className="text-center text-3xl py-2 mt-[2rem] font-bold border-rainbow-gradient">
             <h1 className="p-2">{imageData.title ?? "No Title"}</h1>
           </div>
-          <div className="py-4 grid lg:grid-cols-2 gap-4">
+          <div className="py-4 my-2 grid lg:grid-cols-2 h-auto">
             <div>
               <img
                 src={imageData.url}
                 alt={imageData.title ?? "Image"}
-                className="image-details-img"
+                className="w-full h-auto object-contain"
               />
             </div>
             <div className="p-2">
-              <p className="p-2">Author: <span className="font-bold">{imageData.author ?? "No Author"}</span></p>
-              <p className="p-2">{imageData.description ?? "No Description"}</p>
-              <p className="p-2">
+              <p className="lg:p-2">
+                Author:{" "}
+                <span className="font-bold">
+                  {imageData.author ?? "No Author"}
+                </span>
+              </p>
+              <p className="lg:p-2">
+                {imageData.description ?? "No Description"}
+              </p>
+              <p className="lg:p-2">
                 Category: {imageData.category ?? "No Category"}
               </p>
-              <p className="p-2">
+              <p className="lg:p-2">
                 Created At:{" "}
                 {imageData.createdAt
                   ? imageData.createdAt.toDate().toLocaleDateString()
@@ -98,15 +105,15 @@ const ImageDetails: React.FC = () => {
               </p>
             </div>
           </div>
-        </>
+        </div>
       )}
       {user.uid === imageData?.userUid && (
-        <div>
-          <button className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full">
+        <div className="flex gap-2 md:w-[60%] lg:w-[40%]">
+          <button className="mt-4 mb-4 p-2 font-bold border-2 border-[#e3fdf5] w-full">
             <Link to={pathToUrl(Path.PictureEdit, { pictureId })}>Edit</Link>
           </button>
           <button
-            className="mt-4 p-2 font-bold border-2 border-[#e3fdf5] w-full"
+            className="mt-4 mb-4 p-2 font-bold border-2 border-[#e3fdf5] w-full"
             onClick={() => setIsModalOpen(true)}
           >
             Delete
