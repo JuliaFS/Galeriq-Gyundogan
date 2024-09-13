@@ -22,9 +22,9 @@ const Gallery: React.FC = () => {
     useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [imageSize, setImageSize] = useState<string>('h-[400px]');
 
   const observer = useRef<IntersectionObserver | null>(null);
-  console.log("observer", observer);
 
   const fetchImages = useCallback(async () => {
     if (isFetching || !hasMore) return;
@@ -128,7 +128,7 @@ const Gallery: React.FC = () => {
           <div
             key={image.id}
             ref={index === images.length - 1 ? lastImageRef : null}
-            className="border-2 h-[400px]"
+            className="border-2 h-[400px] transform transition-transform duration-500 ease-in-out hover:z-50 hover:scale-125"
           >
             <Link to={`/details/${image.id}`}>
               <img
