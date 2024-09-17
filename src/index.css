@@ -39,8 +39,7 @@ body{
   display: grid;
   grid-template-columns: repeat(6, var(--size));
   grid-auto-rows: var(--size);
-  margin-bottom: var(--size);
-  place-items: start center;
+  /*margin-bottom: var(--size);*/
   gap: 5px;
   
   &:has(:hover) img:not(:hover),

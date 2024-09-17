@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchLast8Pictures } from "../../services/firestoreService";
 import { ImageDataProps } from "../types/imageType";
-import InfiniteCarousel from "./InfiniteCarusel";
 
 // React component to display the images
 const Home: React.FC = () => {
@@ -29,16 +28,18 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] flex flex-col">
-      <div className="bg-yellow-200 flex-1 grid sm:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] grid-rows-[auto_1fr]">
+      <div className="bg-yellow-200 h-full flex-1 grid sm:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_auto] items-center">
         {/* First Column */}
-        <div className="bg-green-500 flex items-center justify-center">
-          <p className="rotate-[-90deg] bg-white w-[80%] text-center p-4">Our latest pictures</p>
+        <div className="bg-green-500 h-full flex items-center justify-center">
+          <p className="rotate-[-90deg] bg-white w-[80%] text-center p-4">
+            Content here
+          </p>
         </div>
 
         {/* Second Column */}
-        <div className="h-auto">
+        <div className="h-full w-full bg-orange-200 flex items-center justify-center">
           {/* Row 1: Image Gallery */}
-          <div className="gallery bg-orange-200 h-full flex justify-center items-center overflow-hidden">
+          <div className="gallery flex items-center justify-center">
             {pictures.length === 0 ? (
               <p>No pictures found.</p>
             ) : (
@@ -53,8 +54,9 @@ const Home: React.FC = () => {
             )}
           </div>
         </div>
-        {/* Row 2: Additional Content */}
-        <div className="bg-pink-500 flex justify-center items-center">
+
+        {/* Third Column */}
+        <div className="bg-pink-500 h-full flex items-center justify-center">
           <p>Content here</p>
         </div>
       </div>
