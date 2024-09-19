@@ -28,18 +28,17 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full sm:h-[calc(100vh-172px)] lg:h-[calc(100vh-112px)] flex flex-col">
-      <div className="bg-yellow-200 h-full flex-1 grid sm:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_auto] items-center">
+      <div className="bg-yellow-100 flex-1 grid sm:grid-cols-1 lg:grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_auto] items-center">
         {/* First Column */}
-        <div className="bg-green-500 h-full flex items-center justify-center">
-          <p className="rotate-[-90deg] bg-white w-[80%] text-center p-4">
+        <div className="bg-green-200 p-4 flex items-center justify-center">
+          <p className="sm:rotate-0 lg:rotate-[-90deg] bg-white lg:w-[80%] text-center p-4">
             Content here
           </p>
         </div>
 
         {/* Second Column */}
-        <div className="h-full w-full bg-orange-200 flex items-center justify-center">
           {/* Row 1: Image Gallery */}
-          <div className="gallery flex items-center justify-center">
+          <div className="gallery flex items-center justify-center p-10">
             {pictures.length === 0 ? (
               <p>No pictures found.</p>
             ) : (
@@ -48,15 +47,14 @@ const Home: React.FC = () => {
                   key={picture.url}
                   src={picture.url}
                   alt={`Image ${picture.title}`}
-                  className="h-full object-cover"
+                  className="object-cover"
                 />
               ))
             )}
           </div>
-        </div>
 
         {/* Third Column */}
-        <div className="bg-pink-500 h-full flex items-center justify-center">
+        <div className="bg-pink-200 p-4 flex items-center justify-center">
           <p>Content here</p>
         </div>
       </div>
@@ -64,7 +62,7 @@ const Home: React.FC = () => {
       {/* Carousel Section */}
       <div className="bg-pink-200 h-[30%]">
         {pictures.length === 0 ? (
-          <p>No pictures found.</p>
+          <p className="text-center">No pictures found.</p>
         ) : (
           <div
             className="relative h-full w-auto py-[20px] flex overflow-hidden whitespace-nowrap

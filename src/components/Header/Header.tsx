@@ -81,7 +81,7 @@ export default function Header() {
                 Hello, {user.email}
               </li>
               <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
-                <Link to={Path.UserProfile}>User Profile</Link>
+                <Link to={Path.UserProfile} onClick={handleLinkClick}>User Profile</Link>
               </li>
               <li
                 className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0"
