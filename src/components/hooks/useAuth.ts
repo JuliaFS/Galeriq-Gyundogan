@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // Import Firebase types and methods
-import { createUserWithEmailAndPassword, User as FirebaseUser, getAuth, UserCredential } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
-import { authenticateUser, initializeUserProfileInFirestore, registerUserInFirebase } from "../../services/authService";
+import { authenticateUser, initializeUserProfileInFirestore} from "../../services/authService";
 import { setUser } from "../../store/userSlice";
 import { UserProfile } from "../types/UserProfile";
 import { doc, setDoc } from "firebase/firestore";
@@ -79,61 +79,3 @@ const loginUser = async (email: string, password: string) => {
 
   return { loginUser, registerUser };
 };
-
-
-
-
-
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-
-// import { authenticateUser, initializeUserProfileInFirestore, registerUserInFirebase } from "../../services/authService";
-// import { setUser } from "../../store/userSlice";
-
-// //import { User as FirebaseUser } from 'firebase/auth'; // Firebase User type
-
-// interface User{
-//   uid: string;
-//   email: string;
-//   displayName: string;
-//   address: string;
-//   profileImageUrl: string;
-// }
-
-// export const useAuth = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const initializeUserProfile = async (user: User) => {
-//     const { uid, email, displayName, address, profileImageUrl} = user;
-//     await initializeUserProfileInFirestore(uid, email || '', displayName || '', address || '', profileImageUrl || '');
-//     dispatch(setUser({ uid, email: email || '', displayName: displayName || '', address: address || '', profileImageUrl: profileImageUrl || '' }));
-//   };
-
-//   const loginUser = async (email: string, password: string) => {
-//     try {
-//       const userCredential = await authenticateUser(email, password);
-//       await initializeUserProfile(userCredential.user);
-//       toast.success("Login successful");
-//       navigate('/gallery');
-//     } catch (error) {
-//       toast.error(`Failed to login. ${error}`);
-//     }
-//   };
-
-//   const registerUser = async (email: string, password: string, displayName?: string) => {
-//     try {
-//       const userCredential = await registerUserInFirebase(email, password);
-//       await initializeUserProfile(userCredential.user);
-//       dispatch(setUser({ uid: userCredential.user.uid, email, displayName: displayName || '' }));
-//       toast.success("Registration successful");
-//       navigate('/gallery');
-//     } catch (error) {
-//       toast.error(`Failed to register. ${error}`);
-//     }
-//   };
-
-//   return { loginUser, registerUser };
-// };
-

@@ -22,7 +22,7 @@ const Gallery: React.FC = () => {
     useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [imageSize, setImageSize] = useState<string>('h-[400px]');
+  //const [imageSize, setImageSize] = useState<string>('h-[400px]');
 
   const observer = useRef<IntersectionObserver | null>(null);
 

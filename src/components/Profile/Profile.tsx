@@ -28,6 +28,8 @@ const Profile: React.FC = () => {
   ); // State for profile image URL
   const [isUpdating, setIsUpdating] = useState(false);
 
+  console.log("profileImage: ", profileImage)
+
   useEffect(() => {
     if (!user.uid) {
       navigate("/login"); // Redirect to login if no user data
@@ -51,6 +53,7 @@ const Profile: React.FC = () => {
       if (profileImage) {
         newProfileImageUrl = await uploadProfileImage(user.uid, profileImage);
         setProfileImageUrl(newProfileImageUrl); // Update state with the new image URL
+        console.log("profile image in if: ", profileImage)
       }
 
       // Update user profile in Firestore
@@ -70,7 +73,8 @@ const Profile: React.FC = () => {
           email,
           displayName,
           address,
-          profileImageUrl: newProfileImageUrl || "",
+          //profileImageUrl: newProfileImageUrl || "",
+          profileImageUrl: profileImageUrl!
         })
       );
 
