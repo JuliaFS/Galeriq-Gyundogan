@@ -14,7 +14,6 @@ import EditPicture from "./components/EditPicture/EditPicture";
 import Profile from "./components/Profile/Profile";
 
 export default function App() {
-  //const [isLogin, setIsLogin] = useState(true);
 
   return (
     <div className="min-h-screen flex flex-col">

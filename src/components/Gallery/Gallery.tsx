@@ -137,7 +137,7 @@ const Gallery: React.FC = () => {
                 className="object-cover w-full h-[90%] cursor-pointer"
               />
             </Link>
-            <p className="p-2">{image.title ?? "No Title"}</p>
+            <p className="bg-white p-2">{image.title ?? "No Title"}</p>
           </div>
         ))}
         {isFetching && <p>Loading more images...</p>}
