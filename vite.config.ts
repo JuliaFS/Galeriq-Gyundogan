@@ -10,7 +10,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/Galeriq-Gyundogan/', // Replace with your GitHub repo name// '/Galeriq-Gyundogan
+  base: '//Galeriq-Gyundogan/', // Replace with your GitHub repo name// '/Galeriq-Gyundogan
   plugins: [react()],
 });
 
