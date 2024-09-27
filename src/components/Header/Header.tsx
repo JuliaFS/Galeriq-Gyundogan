@@ -59,7 +59,7 @@ export default function Header() {
               : "sm:hidden lg:flex lg:flex-row lg:justify-end lg:gap-4"
           }
         >
-          <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0">
+          <li className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0 cursor-pointer">
             <Link to={Path.Home} onClick={handleLinkClick}>
               Home
             </Link>
@@ -84,7 +84,7 @@ export default function Header() {
                 <Link to={Path.UserProfile} onClick={handleLinkClick}>User Profile</Link>
               </li>
               <li
-                className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0"
+                className="border-b-[1px] border-white lg:border-none sm:p-2 lg:p-0 cursor-pointer"
                 onClick={handleLogout}
               >
                 Logout
