@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchLast8Pictures } from "../../services/firestoreService";
 import { ImageDataProps } from "../types/imageType";
 
@@ -13,6 +13,7 @@ const Home: React.FC = () => {
         const fetchedPictures = await fetchLast8Pictures();
         setPictures(fetchedPictures);
       } catch (error) {
+        //TO DO add toast for error
         console.error("Error loading pictures:", error);
       } finally {
         setLoading(false);

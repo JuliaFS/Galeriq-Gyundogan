@@ -12,6 +12,7 @@ import Gallery from "./components/Gallery/Gallery";
 import PictureDetails from "./components/PictureDetails/PictureDetails";
 import EditPicture from "./components/EditPicture/EditPicture";
 import Profile from "./components/Profile/Profile";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 export default function App() {
 
@@ -38,7 +39,7 @@ export default function App() {
             <Route path={Path.UserProfile} element={<Profile />} />
             {/*<Route path={Path.Logout} element={<Logout />} />*/}
           </Route>
-          {/*<Route path={Path.Error404Path} element={<PageNotFound />} />*/}
+          <Route path={Path.Error404Path} element={<PageNotFound />} />
         </Routes>
       </main>
       <footer className="bg-purple-200 flex sm:flex-col lg:flex-row sm:justify-center items-center sm:p-2 lg:p-4">
