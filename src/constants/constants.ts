@@ -1,6 +1,6 @@
 const Path = {
-    //Home: "/",
-    Home: "/Galeriq-Gyundogan",
+    Home: "/",
+    //Home: "/Galeriq-Gyundogan",
     Register: "/register",
     Login: "/login",
     Logout: "/logout",
