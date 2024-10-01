@@ -9,11 +9,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import { clearUser, selectUser } from "../../store/userSlice";
 import { Path } from "../../constants/constants";
+import useTranslation from "../../context/useTranslation";
 
 export default function Header() {
   const [nav, setNav] = useState(false);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   console.log({ user });
   const dispatch = useDispatch();
@@ -48,7 +50,7 @@ export default function Header() {
     <>
       <div className="p-4 whitespace-nowrap">
         <Link to={Path.Home} onClick={handleLinkClick} className="font-kalam bg-rainbow-gradient bg-clip-text text-transparent text-2xl">
-          Gallery Gyundogan
+          {t('home')}
         </Link>
       </div>
       <nav className="lg:static lg:flex-grow lg:p-4">
